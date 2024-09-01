@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+
+    environment {
+        DIRECTORY_PATH = 'https://github.com/Muskanpreet20/task5.1p' // Path of the code directory
+        TESTING_ENVIRONMENT = 'TestEnv' // Name of the testing environment
+        PRODUCTION_ENVIRONMENT = 'MuskanpreetProd' // Your name as the production environment
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "Fetching the source code from the directory path specified by the environment variable: ${env.DIRECTORY_PATH}"
+                echo "Compile the code and generate any necessary artifacts"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Running unit tests"
+                echo "Running integration tests"
+            }
+        }
+
+        stage('Code Quality Check') {
+            steps {
+                echo "Checking the quality of the code"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying the application to a testing environment specified by the environment variable: ${env.TESTING_ENVIRONMENT}"
+            }
+        }
+
+        stage('Approval') {
+            steps {
+                echo "Awaiting manual approval"
+                sleep time: 10, unit: 'SECONDS' // Simulate manual approval with a 10-second pause
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo "Deploying to the production environment: ${env.PRODUCTION_ENVIRONMENT}"
+            }
+        }
+    }
+}
